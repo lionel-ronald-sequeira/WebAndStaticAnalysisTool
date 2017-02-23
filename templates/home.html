@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+      {% with messages = get_flashed_messages() %}
+         {% if messages %}
+               {% for message in messages %}
+                    <p>{{ message }}</p>
+               {% endfor %}
+         {% endif %}
+      {% endwith %}
+    <a href="/viewresults">View Results</a>
+    <a href="/logout">Logout</a>
+      <div id="error-msg"></div>
+    <form action="/uploadfile" method="post" enctype="multipart/form-data" id="home-form">
+        Please upload a file <input type="file" name="file" id="file-id"/></br><br>
+        <input type="submit" value="Upload" id="submit-id">
+    </form>
+    <script type="text/javascript">
+        $(document).ready(function(){
+                $("#error-msg").hide();
+                $("#submit-id").click(function(){
+
+                    if(( $("#file-id")[0].files[0]) == null){
+                        $("#error-msg").text("File Not Selected");
+                        $("#error-msg").show();
+                        return false;
+                    }
+                    var filesize=$("#file-id")[0].files[0].size;
+                    var filename=$("#i_file")[0].files[0].name;
+                    var fileRegex=/^[A-Za-z0-9.]{1,15}$/;
+
+                    if (filename == "") {
+                        $("#error-msg").text("File name must not be blank");
+                        $("#error-msg").show();
+                        return false;
+                    }
+
+                    if(!fileRegex.test(filename)){
+
+                        $("#error-msg").text("File name can contain alphabets,numbers");
+                        $("#error-msg").show();
+                        return false;
+                    }
+                    if(filesize > 2000000){
+                        $("#error-msg").text("File must not be greater than 2 MB");
+                        $("#error-msg").show();
+                        return false;
+                    }
+
+                });
+            });
+    </script>
+</body>
+</html>

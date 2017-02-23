@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+      {% with messages = get_flashed_messages() %}
+         {% if messages %}
+               {% for message in messages %}
+                    <p>{{ message }}</p>
+               {% endfor %}
+         {% endif %}
+      {% endwith %}
+
+      <a href="/">Login</a>
+      <div id="error-msg"></div>
+      <form action="/register" method="POST" id="register-form">
+        Firstname <input type="text" name="firstname" id="firstname-id"/></br><br>
+        Lastname <input type="text" name="lastname" id="lastname-id"/></br><br>
+        Username <input type="text" name="username" id="username-id"/></br><br>
+        Password <input type="password" name="password" id="password-id"/></br><br>
+        <input type="submit" value="Submit" id="submit-id">
+    </form>
+    <script type="text/javascript">
+        $(document).ready(function(){
+                $("#error-msg").hide();
+
+                $("#submit-id").click(function(){
+
+                    var msg="";
+                    var userNameRegex=/^[A-Za-z0-9_]{6,15}$/;
+                    var passwordRegex=/^[A-Za-z0-9!@#$%^&*]{8,15}$/;
+                    var nameRegex=/^[A-Za-z]{1,20}$/;
+                    if(!nameRegex.test($("#firstname-id").val())){
+
+                        msg+='Firstname must have alphabets and can have upto 20 characters <br/>';
+                    }
+                    if(!nameRegex.test($("#lastname-id").val())){
+
+                        msg+='Lastname must have alphabets and can have upto 20 characters.  <br/>';
+                    }
+
+                    if(!userNameRegex.test($("#username-id").val())){
+
+                        msg+='Username must be 6 to 15 characters and can have alphabets,numbers,_  <br/>';
+                    }
+                    if(!passwordRegex.test($("#password-id").val())){
+
+                        msg+='Password must be 8 to 15 characters and can have alphabets,numbers,special characters ! @ # $ % ^ & *  <br/>';
+
+                    }
+                    if(msg == "")
+                    {
+                        $("#register-form").submit();
+                    }else{
+
+                        $("#error-msg").text(msg);
+                        $("#error-msg").show();
+                        return false;
+                    }
+              });
+        });
+    </script>
+
+</body>
+</html>

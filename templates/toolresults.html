@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Results</title>
+</head>
+<body>
+        <a href="/home">Home</a>
+        {% with messages = get_flashed_messages() %}
+         {% if messages %}
+            <table border="1">
+                <tr>
+                    <th>Filename</th>
+                    <th>Toolname</th>
+                    <th>Result</th>
+                </tr>
+               {% for message in messages %}
+                    {% for msg in message %}
+                        <tr>
+                            <td>{{msg.0}}</td>
+                            <td>{{msg.1}}</td>
+                            <td>{{msg.2}}</td>
+                        </tr>
+                    {% endfor %}
+               {% endfor %}
+             </table>
+         {% endif %}
+      {% endwith %}
+
+</body>
+</html>

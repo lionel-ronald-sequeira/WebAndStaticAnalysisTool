@@ -1,0 +1,8 @@
+[DB-config]
+username = <USER_NAME>
+password = <PASS_WORD>
+url = <URL>
+dbname = <DB_NAME>
+
+[SECRET-key]
+key=<KEY>
